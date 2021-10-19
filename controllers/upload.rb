@@ -22,20 +22,13 @@ post '/upload' do
     end
     
     doc = Document.new
-    doc.file = 
 
-    current_time = Time.now().strftime "%F %T"
-    file_ext = File.extname(params[:file][:tempfile].path)
-
-    # TODO: check for allowed file extensions only
-    db = DB.get_db
-    db.execute "INSERT INTO Documents (name, image_ext, creation_time) VALUES
-		('#{current_time}', '#{file_ext}', #{Time.now.to_i})"
-
-    last_id = db.last_insert_row_id
+    doc.file_orig_name = name
+    doc.file_ext = File.extname(params[:file][:tempfile].path)
+    doc.save
     
-    
-    new_file_path = "#{config[:doc_dir]}#{last_id}#{file_ext}"
-    FileUtils::Verbose.cp(tempfile.path, new_file_path)
-    redirect "/edit/#{last_id}"
+    new_path = "./public/uploads/#{doc.id}#{doc.file_ext}"
+    FileUtils::Verbose.cp(tempfile.path, new_path)
+
+    redirect "/edit/#{doc.id}"
 end

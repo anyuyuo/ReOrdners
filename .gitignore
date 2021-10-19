@@ -1,1 +1,7 @@
 Gemfile.lock
+test.rb
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.db

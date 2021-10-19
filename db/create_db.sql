@@ -3,7 +3,8 @@ CREATE TABLE IF NOT EXISTS Documents (
 	scan_date INT,
 	content TEXT,
 	description TEXT,
-	file_ext TEXT
+	file_ext TEXT,
+	file_orig_name TEXT
 );
 
 CREATE TABLE IF NOT EXISTS Appendicies (

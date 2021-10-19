@@ -1,0 +1,17 @@
+<style>
+    fieldset {
+        border: 1px solid black;
+        padding: .4rem;
+    }
+</style>
+
+<fieldset>
+    <legend>Information</legend>
+    <p>Id: <%= @doc.id %></p>
+    <p>Name: <%= @doc.name %></p>
+    <p>Tags: <%= "should be a foreach" %></p>
+</fieldset>
+
+<div id="image-previews">
+    <img src="<%= @doc.get_path %>">
+</div>
