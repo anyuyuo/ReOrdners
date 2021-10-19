@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<title>Ordners</title>
+<meta charset=utf-8>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<style>
+	:root {
+		--primary: #a75de3;
+		--black: #282828;
+		--marble: #f0f0f0;
+	}
+    /* default style for elements */
+    *, *::before, *::after {
+    	margin: 0;
+		padding: 0;
+		border: none;
+		box-sizing: border-box;
+		font-family: sans-serif;
+    }
+
+	body {
+		background-color: var(--marble);
+	}
+    
+    .btn, button, input[type="submit"], input[type="reset"] {
+		font-size: 0.8rem;
+		padding: 2px 8px;
+		border: 1px #d0d0d0 solid;
+		border-radius: 3px;
+		cursor: pointer;
+		background-color: #f0f0f0;
+		text-decoration: none;
+		color: var(--black);
+		display: inline-block;
+    }
+
+	.btn:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
+		background-color: #e7e7e7;
+	}
+    /* ---------------- */
+
+    nav {
+		padding: 0px 8px;
+		border-bottom: 1px solid #d0d0d0;
+    }
+    nav a {
+		display: inline-block;
+		text-decoration: none;
+		padding: 8px;
+		color: #646464;
+    }
+
+	nav a:hover {
+		color: var(--primary)
+	}
+
+    #logout {
+		float: right;
+    	color: #ff6050;
+    }
+
+    #content {
+    	padding: 4px;
+		background-color: var(--marble);
+    }
+
+	/* @media (min-width : 1280px) {
+		#content {
+			width: 1280px;
+			padding: 2rem;
+			margin: auto;
+		}
+	} */
+</style>
+
+<body>
+    <nav>
+		<a href="/">Home</a>
+		<%# <a href="/search">Seach</a>
+		<a href="/upload">Upload</a> %>
+		<% if @render_logout %>
+		<a id="logout" href="/logout">Logout</a>
+		<% end %>
+    </nav>
+    <main id="content">
+	<%= yield %>
+    </main>
+</body>
+
+

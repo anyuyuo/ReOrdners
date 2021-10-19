@@ -1,0 +1,48 @@
+<style>
+	#content {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		min-height: 40vh;
+	}
+	form {
+		display: flex;
+		display:-webkit-flex
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		align-items: end;
+	}
+
+	form > * {
+		margin: 4px;
+	}
+
+	label {
+		display: block;
+	}
+
+	input[type="text"] {
+		padding: 4px 16px;
+		font-size: 1.2rem;
+		border: 1px solid #a0a0a0;
+		border-radius: 5px;
+	}
+
+	input[type="submit"] {
+		background-color: #fff;
+		float: right;
+	}
+</style>
+
+<form action="/search" method="get">
+    <div>
+		<label>Name</label>
+		<input name="name" type="text" value="<%= @name %>">
+	</div>
+	<div>
+		<label>Stichwörter</label>
+		<input type="text" name="tags" value="<%= @tags %>">
+	</div>
+    <input type="submit" value="Search">
+</form>

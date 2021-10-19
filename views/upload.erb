@@ -1,0 +1,10 @@
+<% if @error %>
+<p style="color: #ff0000"><%= @error %></p>
+<% end %>
+<form action="/upload" method="POST" enctype="multipart/form-data">
+    <label>Select Image</label>
+    <br>
+    <input name="file" type="file">
+    <br><br>
+    <input type="submit" value="Upload">
+</form>
