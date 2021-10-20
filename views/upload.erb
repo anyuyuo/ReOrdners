@@ -1,10 +1,10 @@
+<link rel="stylesheet" href="/css/upload.css">
 <% if @error %>
 <p style="color: #ff0000"><%= @error %></p>
 <% end %>
 <form action="/upload" method="POST" enctype="multipart/form-data">
-    <label>Select Image</label>
-    <br>
-    <input name="file" type="file">
-    <br><br>
+    <label id="upload-file_label" class="btn" for="upload-file_input">Select Image</label>
+    <input id="upload-file_input" name="file" type="file">
+    <input id="upload-parent_input" name="parent" value="default">
     <input type="submit" value="Upload">
 </form>

@@ -14,7 +14,7 @@ gem 'webrick'
     - [ ] Function: Change name
     - [ ] Function: Add Description
     - [ ] Function: Add Child Document 
-- Seach
+- Search
     - [ ] Search by id
     - [ ] Search by name
     - [ ] Search by desc
@@ -22,7 +22,7 @@ gem 'webrick'
         - [ ] by date
         - [ ] by date range
     - [ ] Search by Type/Tags
-    - Fuzzy search (all included, first is one by one like in advanced search)
+    - [ ] Fuzzy search (all included, first is one by one like in advanced search)
 
 ## design
 

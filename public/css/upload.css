@@ -1,0 +1,25 @@
+form {
+    width: 100%;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#upload-file_label {
+    width: 18rem;
+    padding: 1.8rem;
+    text-align: center;
+    background-color: #fafafa;
+    margin-bottom: 2rem;
+}
+
+#upload-file_label:hover {
+    background-color: #efefef;
+}
+
+#upload-file_input,
+#upload-parent_input {
+    display: none;
+}

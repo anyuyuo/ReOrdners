@@ -1,0 +1,28 @@
+#form-query {
+    margin-bottom: 1rem;
+}
+
+#form-query-input {
+    padding: .1rem .2rem;
+    border-radius: var(--radius); 
+}
+
+#search-advanced:target + #form-enable_advanced {
+    display: none;
+}
+
+#search-advanced {
+    display: none;
+}
+
+#search-advanced > input {
+    display: block;
+    width: 12rem;
+    margin-bottom: 4px;
+    padding: 0.1rem 0.2rem;
+    border-radius: var(--radius);
+}
+
+#search-advanced:target {
+    display: block;
+}

@@ -22,8 +22,5 @@ end
 get '/' do
     db = DB.get_db
     
-    res = db.execute "SELECT * FROM Tags;"
-    logger.info res
-
     erb :index
 end

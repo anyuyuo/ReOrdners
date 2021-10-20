@@ -1,4 +1,4 @@
 get '/search' do
-    erb "<p>Advanced Search...</p>"
+    erb :search
 end
 

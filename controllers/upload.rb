@@ -1,7 +1,6 @@
 require './models/document'
 
 before '/upload' do
-    logger.info 'checking if logged in. Need to use?: ' + settings.use_login.to_s
     if settings.use_login
 	    redirect '/' unless session['logged_in']
     end
@@ -17,7 +16,7 @@ post '/upload' do
             (tempfile = params[:file][:tempfile]) &&
             (name = params[:file][:filename])
 
-        @error = 'Error uploading file'
+        @error = 'Error uploading file: No File selected'
         return erb :upload
     end
     
