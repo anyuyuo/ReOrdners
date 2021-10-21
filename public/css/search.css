@@ -26,3 +26,36 @@
 #search-advanced:target {
     display: block;
 }
+
+#doc-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+}
+
+.document {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--black);
+    margin-right: 4px;
+    padding: .4rem;
+    border-radius: var(--radius);
+    border: 1px solid var(--passive-gray);
+    background-color: #fafafa;
+}
+
+.document:last-child {
+    margin-right: 0;
+}
+
+.document:hover {
+    background-color: #fff;
+    border: 1px solid var(--primary);
+}
+
+.document-image {
+    max-width: 100%;
+    margin: auto;
+    max-height: 70vh;
+    display: block;
+}
+

@@ -1,19 +1,29 @@
 <link rel="stylesheet" href="/css/search.css">
 <form action="/search">
     <div id="form-query">
-        <input type="text" name="query" id="form-query-input" placeholder="...">
+        <input type="text" name="query" id="form-query-input" placeholder="fuzzy serach">
         <input type="submit" value="search" class="btn">
     </div>
     <div id="form-advanced_controls">
         <div id="search-advanced">
-            <input type="text" name="tags">
+            <input placeholder="tags (tag1, tag2, ...)" type="text" name="tags">
             <input type="date" name="date">
-            <a class="btn" href="#">close advanced search</a>
+            <a class="btn" href="#">close advanced options</a>
         </div>
-        <a class="btn" id="form-enable_advanced" href="#search-advanced">advanced</a>
+        <a class="btn" id="form-enable_advanced" href="#search-advanced">
+          show advanced options
+        </a>
     </div>
 </form>
 <hr>
-<div>
-
+<div id="doc-grid">
+  <% @docs.each do |doc| %>
+    <a class="document" href="/edit/<%= doc.id %>">
+      <img class="document-image" src="<%= doc.get_path %>">
+      <div>
+        <p>Name: <%= doc.name %></p>
+        <p>Tags: comming soon..</p>
+      </div>
+    </a>
+  <% end %>
 </div>

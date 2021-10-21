@@ -1,17 +1,21 @@
-<style>
-    fieldset {
-        border: 1px solid black;
-        padding: .4rem;
-    }
-</style>
-
-<fieldset>
+<link rel="stylesheet" href="/css/edit.css">
+<form id="head">
+  <fieldset>
     <legend>Information</legend>
     <p>Id: <%= @doc.id %></p>
     <p>Name: <%= @doc.name %></p>
     <p>Tags: <%= "should be a foreach" %></p>
-</fieldset>
+  </fieldset>
 
+  <fieldset>
+    <legend>Actions</legend>
+    <% if defined? @edit_page %>
+      <input type="submit" value="save">
+    <% else %>
+      <a href="/edit/<%= @doc.id %>" class="btn">edit</a>
+    <% end %>
+  </fieldset>
+</form>
 <div id="image-previews">
     <img src="<%= @doc.get_path %>">
 </div>

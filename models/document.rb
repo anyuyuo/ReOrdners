@@ -34,6 +34,17 @@ class Document
         return @id
     end
 
+    def self.create_doc obj
+        doc = Document.new
+        doc.id = obj["id"]
+        doc.name = obj["name"]
+        doc.scan_date = obj["scan_date"]
+        doc.content = obj["content"]
+        doc.description = obj["description"]
+        doc.file_ext = obj["file_ext"]
+        return doc
+    end
+
     def self.load id
         db = DB.get_db
 
@@ -42,16 +53,27 @@ class Document
         return nil if (db_res.length < 1) 
 
         res = db_res[0]
+        
+        res["id"] = id
+      
+        return self.create_doc res
+    end
+    
+    def self.load_batch offset=0, batch_count=nil
+        db = DB.get_db
+        if defined? batch_count
+          # TODO: some something about it
+        end
 
-        doc = Document.new
-        doc.id = id
-        doc.name = res["name"]
-        doc.scan_date = res["scan_date"]
-        doc.content = res["content"]
-        doc.description = res["description"]
-        doc.file_ext = res["file_ext"]
+        sql = "SELECT rowid AS id, name, scan_date, content, description, file_ext \
+          FROM Documents"
+        res = db.execute sql
+        docs = []
+        res.each do |doc|
+          docs.push self.create_doc doc
+        end
 
-        return doc
+        return docs
     end
 
     def self.get_doc_count
