@@ -15,6 +15,7 @@ gem 'webrick'
     - [ ] Function: Add Description
     - [ ] Function: Add Child Document 
 - Search
+    - [ ] Information should be sticky to the bottom of the document preview item link
     - [ ] Search by id
     - [ ] Search by name
     - [ ] Search by desc

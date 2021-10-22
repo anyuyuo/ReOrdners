@@ -1,5 +1,18 @@
-fieldset {
-    border: 1px solid black;
-    padding: .4rem;
+#head {
+    display: flex;
+    justify-content: space-between;
+}
+
+#head > *:first-child {
+    width: 85%;
+}
+
+#head > *:last-child {
+    width: 13%;
+}
+
+input.action {
+    display: block;
+    margin: .2rem 0;
 }
 

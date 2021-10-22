@@ -18,9 +18,10 @@
 <hr>
 <div id="doc-grid">
   <% @docs.each do |doc| %>
-    <a class="document" href="/edit/<%= doc.id %>">
+    <a class="document" href="/view/<%= doc.id %>">
       <img class="document-image" src="<%= doc.get_path %>">
-      <div>
+      <hr>
+      <div class="document-info">
         <p>Name: <%= doc.name %></p>
         <p>Tags: comming soon..</p>
       </div>

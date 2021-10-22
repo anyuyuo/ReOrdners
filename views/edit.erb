@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/css/edit.css">
-<form id="head">
+<div id="head">
   <fieldset>
     <legend>Information</legend>
     <p>Id: <%= @doc.id %></p>
@@ -9,13 +9,21 @@
 
   <fieldset>
     <legend>Actions</legend>
-    <% if defined? @edit_page %>
-      <input type="submit" value="save">
+    <% if defined? @edit_enabled %>
+      <form action="/edit/<%= @doc.id %>" method="post">
+        <input type="submit" value="save" class="action">
+      </form>
+      <form action="/edit/delete/<%= @doc.id %>" method="post">
+        <input type="submit" value="delete" class="action">
+      </form>
     <% else %>
-      <a href="/edit/<%= @doc.id %>" class="btn">edit</a>
+      <form action="/edit/<%= @doc.id %>" method="post">
+        <a href="/edit/<%= @doc.id %>" class="btn">edit</a>
+      </form>
     <% end %>
   </fieldset>
-</form>
+</div>
+<hr>
 <div id="image-previews">
     <img src="<%= @doc.get_path %>">
 </div>

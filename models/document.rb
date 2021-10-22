@@ -34,6 +34,11 @@ class Document
         return @id
     end
 
+    def self.delete id
+      db = DB.get_db
+      sql = db.execute "DELETE FROM Documents WHERE rowid=#{id}"
+    end
+
     def self.create_doc obj
         doc = Document.new
         doc.id = obj["id"]

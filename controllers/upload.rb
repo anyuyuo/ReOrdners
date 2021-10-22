@@ -11,7 +11,6 @@ get '/upload' do
 end
 
 post '/upload' do
-    # later redirect to /edit/{id} of newly uploaded file
     unless params[:file] &&
             (tempfile = params[:file][:tempfile]) &&
             (name = params[:file][:filename])
@@ -29,5 +28,5 @@ post '/upload' do
     new_path = "./public/uploads/#{doc.id}#{doc.file_ext}"
     FileUtils::Verbose.cp(tempfile.path, new_path)
 
-    redirect "/edit/#{doc.id}"
+    redirect "/view/#{doc.id}"
 end
