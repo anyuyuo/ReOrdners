@@ -9,11 +9,12 @@ gem 'webrick'
 ## roadmap
 
 - Edit
-    - [ ] Design Page
+    - [ ] Design page
     - [ ] Frontent implementation
     - [ ] Function: Change name
-    - [ ] Function: Add Description
-    - [ ] Function: Add Child Document 
+    - [ ] Function: Add description
+    - [ ] Function: Add child documents 
+    - [ ] Set other document as parent document
 - Search
     - [ ] Information should be sticky to the bottom of the document preview item link
     - [ ] Search by id

@@ -16,3 +16,7 @@ input.action {
     margin: .2rem 0;
 }
 
+.head-info-name {
+    width: 4rem;
+    display: inline-block;
+}

@@ -67,6 +67,12 @@ nav a:hover {
     color: var(--primary)
 }
 
+input {
+    border: 1px solid var(--passive-gray);
+    padding: .1rem .2rem;
+    border-radius: var(--radius);
+}
+
 #logout {
     float: right;
     color: #ff6050;

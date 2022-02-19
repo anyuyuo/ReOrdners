@@ -20,6 +20,28 @@ class Document
         "/uploads/#{self.id}#{self.file_ext}"
     end
 
+    def update
+        db = DB.get_db
+
+        begin
+            sql = <<-SQL
+                UPDATE Documents
+                SET
+                    name=?,
+                    description=?
+                WHERE
+                    rowid=?
+            SQL
+            db.execute sql, [@name, @description, @id]
+        rescue => exception
+            # todo: raise or return false?
+            # raise "Error: "  + exception.to_s
+            return false
+        end
+        
+        return true
+    end
+
     def save
         db = DB.get_db
 
@@ -27,6 +49,7 @@ class Document
             sql = db.execute "INSERT INTO Documents (name, scan_date, content, description, file_ext) VALUES
             (?, ?, ?, ?, ?)", [@name, @scan_date, @content, @description, @file_ext]
         rescue => exception
+            # todo: don't puts here, rather return an error
             $stderr.puts "Error: "  + exception.to_s
         end
         

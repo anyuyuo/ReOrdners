@@ -1,16 +1,39 @@
+
+<% if defined? @edit_enabled %>
+<% else %>
+<% end %>
+
 <link rel="stylesheet" href="/css/edit.css">
 <div id="head">
+  <!-- Information tab -->
   <fieldset>
     <legend>Information</legend>
-    <p>Id: <%= @doc.id %></p>
-    <p>Name: <%= @doc.name %></p>
-    <p>Tags: <%= "should be a foreach" %></p>
+      <p>Id: <%= @doc.id %></p>
+      <!-- Name -->
+    <% if defined? @edit_enabled %>
+      <p>
+        <span class="head-info-name">Name: </span>
+        <input value="<%= @doc.name %>" name="name" form="form-save" />
+      </p>
+    <% else %>
+      <p>Name: <%= @doc.name %></p>
+    <% end %>
+    <!-- Tags -->
+    <% if defined? @edit_enabled %>
+      <p>
+        <span class="head-info-name">Tags: </span>
+        <input value="<%= @doc.description %>" name="tags" form="form-save"/>
+      </p>
+    <% else %>
+      <p>Tags: <%= @doc.description %></p>
+    <% end %>
   </fieldset>
 
+  <!-- Actions tab -->
   <fieldset>
     <legend>Actions</legend>
     <% if defined? @edit_enabled %>
-      <form action="/edit/<%= @doc.id %>" method="post">
+      <form action="/edit/<%= @doc.id %>" method="post" id="form-save">
         <input type="submit" value="save" class="action">
       </form>
       <form action="/edit/delete/<%= @doc.id %>" method="post">
