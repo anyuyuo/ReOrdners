@@ -34,10 +34,10 @@
     <legend>Actions</legend>
     <% if defined? @edit_enabled %>
       <form action="/edit/<%= @doc.id %>" method="post" id="form-save">
-        <input type="submit" value="save" class="action">
+        <input type="submit" value="save" class="btn action">
       </form>
       <form action="/edit/delete/<%= @doc.id %>" method="post">
-        <input type="submit" value="delete" class="action">
+        <input type="submit" value="delete" class="btn action">
       </form>
     <% else %>
       <form action="/edit/<%= @doc.id %>" method="post">

@@ -25,7 +25,8 @@ gem 'webrick'
         - [ ] by date range
     - [ ] Search by Type/Tags
     - [ ] Fuzzy search (all included, first is one by one like in advanced search)
-
+- Optimization
+    - [ ] Add prod flag to serve statics from nginx
 ## design
 
 ### search

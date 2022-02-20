@@ -22,26 +22,30 @@ body {
     background-color: var(--marble);
 }
 
-.btn, button, input[type="submit"], input[type="reset"] {
+.btn, button, input[type="reset"] {
     font-size: 0.8rem;
     padding: 2px 8px;
     border: 1px var(--passive-gray) solid;
     border-radius: var(--radius);
     cursor: pointer;
-    background-color: #f0f0f0;
+    background-color: #fafafa;
     text-decoration: none;
     color: var(--black);
     display: inline-block;
+}
+
+.btn[disabled="true"] {
+    color: var(--passive-gray);
+}
+
+.btn:hover, button:hover, input[type="reset"]:hover {
+    background-color: #e7e7e7;
 }
 
 fieldset {
     border: 1px solid black;
     padding: .4rem;
     border-radius: var(--radius);
-}
-
-.btn:hover, button:hover, input[type="submit"]:hover, input[type="reset"]:hover {
-    background-color: #e7e7e7;
 }
 
 hr {
@@ -83,10 +87,62 @@ input {
     background-color: var(--marble);
 }
 
-/* @media (min-width : 1280px) {
-    #content {
-        width: 1280px;
-        padding: 2rem;
-        margin: auto;
-    }
-} */
+/* Layouts */
+.center-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Paddings */
+
+.p {
+    padding: 0.7rem;
+}
+
+.p-sm {
+    padding: 0.2rem;
+}
+
+.pt {
+    padding-top: 0.7rem;
+}
+
+.pr {
+    padding-right: 0.7rem;
+}    
+
+.pl {
+    padding-left: 0.7rem;
+}        
+
+.pb {
+    padding-bottom: 0.7rem;
+}
+
+/* margins */
+
+.m {
+    margin: 0.7rem;
+}
+
+.m-sm {
+    margin: 0.2rem;
+}
+
+.mt {
+    margin-top: 0.7rem;
+}
+
+.mr {
+    margin-right: 0.7rem;
+}    
+
+.ml {
+    margin-left: 0.7rem;
+}        
+
+.mb {
+    margin-bottom: 0.7rem;
+}

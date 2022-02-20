@@ -1,10 +1,24 @@
-<link rel="stylesheet" href="/css/upload.css">
+<link rel="stylesheet" href="/css/upload.css" />
+
 <% if @error %>
 <p style="color: #ff0000"><%= @error %></p>
 <% end %>
-<form action="/upload" method="POST" enctype="multipart/form-data">
-    <label id="upload-file_label" class="btn" for="upload-file_input">Select Image</label>
-    <input id="upload-file_input" name="file" type="file">
-    <input id="upload-parent_input" name="parent" value="default">
-    <input type="submit" value="Upload">
+
+<form action="/upload" method="POST" enctype="multipart/form-data" id="upload">
+    <label id="upload-file_label" class="btn center-content" for="upload-file_input"
+            title="drop and down also works">
+        <img src="/icons/images.svg"/>
+        <span class="pl">Select images</span>
+        <%# todo: for now just 1 image, backend does not support many yet %>
+    </label>
+    <%# <input id="upload-file_input" name="file" type="file" multiple /> %>
+    <input id="upload-file_input" name="file" type="file" />
+
+    <input type="submit" id="upload-submit" class="btn" value="Upload" disabled="true" />
 </form>
+
+<div id="preview">
+    <%# will be filled by javascript %>
+</div>
+
+<script src="/js/upload.js"></script>
