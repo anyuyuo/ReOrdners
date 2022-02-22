@@ -1,11 +1,3 @@
-
-
-## linux install
-gem 'sinatra'
-gem 'sqlite3'
-gem 'webrick'
-
-
 ## roadmap
 
 - Edit
@@ -25,11 +17,7 @@ gem 'webrick'
         - [ ] by date range
     - [ ] Search by Type/Tags
     - [ ] Fuzzy search (all included, first is one by one like in advanced search)
+- Backend
+    - [ ] Add tesseract to extract content from letters and save the content in db to be searchable
 - Optimization
     - [ ] Add prod flag to serve statics from nginx
-## design
-
-### search
-Either everything in own box or use text syle: "tag:something some fuzzy search"
-
-I tend to own box for everything, since the one aimed at are not programmers who like to write text

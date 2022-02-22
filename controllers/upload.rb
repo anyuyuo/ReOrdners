@@ -11,22 +11,29 @@ get '/upload' do
 end
 
 post '/upload' do
-    unless params[:file] &&
-            (tempfile = params[:file][:tempfile]) &&
-            (name = params[:file][:filename])
-
-        @error = 'Error uploading file: No File selected'
+    # check if actual files are being upoloaded
+    unless params[:files]
+        @error = 'Error uploading file: No Files uploaded'
         return erb :upload
     end
-    
-    doc = Document.new
 
-    doc.file_orig_name = name
-    doc.file_ext = File.extname(params[:file][:tempfile].path)
-    doc.save
+    # check files conditions
+    params[:files].each do |file|
+        unless file[:tempfile] && file[:filename]
+            @error = 'Error uploading file: Broken file or something, try again, I guess'
+        end
+    end
     
-    new_path = "./public/uploads/#{doc.id}#{doc.file_ext}"
-    FileUtils::Verbose.cp(tempfile.path, new_path)
+    params[:files].each do |file|
+        doc = Document.new
 
-    redirect "/view/#{doc.id}"
+        doc.file_orig_name = file[:filename]
+        doc.file_ext = File.extname(file[:tempfile].path)
+        doc.save
+        
+        new_path = "./public/uploads/#{doc.id}#{doc.file_ext}"
+        FileUtils::Verbose.cp(file[:tempfile].path, new_path)
+
+        redirect "/view/#{doc.id}"
+    end
 end
