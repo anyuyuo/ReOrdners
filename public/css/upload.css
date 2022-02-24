@@ -53,6 +53,10 @@ form {
     max-width: 100%;
 }
 
+.btn.starred {
+    background-color: gold;
+}
+
 @media (max-width: 1200px) {
     #preview {
         grid-template-columns: auto auto auto;

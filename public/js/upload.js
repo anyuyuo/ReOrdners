@@ -25,6 +25,7 @@ function renderImagePreviews(event) {
         
         /* create html elements according to template*/
         let image = document.createElement("div");
+        image.attributes.index = i;
         image.classList.add("preview-image", "center-content", "m");
 
         let actions = document.createElement("div");
@@ -35,10 +36,10 @@ function renderImagePreviews(event) {
 
         // Todo: set proper icons as values
         btnActionSetParent.textContent = "*";
-        btnActionSetParent.classList.add("btn")
+        btnActionSetParent.classList.add("btn", "action-parent")
+        btnActionSetParent.onclick = setParent;
 
         btnActionDeleteImage.textContent = "-";
-        btnActionDeleteImage.attributes.index = i;
         btnActionDeleteImage.classList.add("btn", "ml");
         btnActionDeleteImage.onclick = delPreviewImage;
 
@@ -54,9 +55,77 @@ function renderImagePreviews(event) {
         preview.appendChild(image);
     }
 
+    preview.querySelector('.action-parent').classList.add("starred");
+
     btnSubmit.disabled = false;
 }
 
 function delPreviewImage(event) {
-    console.log(event.target.attributes.index)
+    let index = getActionParentIndex(event.target);
+    removeFile(index);
+    renderImagePreviews();
+}
+
+function setParent(event) {
+    let index = getActionParentIndex(event.target);
+    console.log({
+        index,
+        f1: btnSelectImages.files[index],
+        f2: btnSelectImages.files[0]
+    })
+
+    swapFiles(index, 0);
+
+    console.log({
+        f1: btnSelectImages.files[index],
+        f2: btnSelectImages.files[0]
+    })
+    renderImagePreviews();
+}
+
+// /* copied from https://stackoverflow.com/questions/16943605/remove-a-filelist-item-from-a-multiple-inputfile */
+function removeFile(index){
+    let attachments = btnSelectImages.files; // <-- reference your file input here
+    let fileBuffer = new DataTransfer();
+
+    // append the file list to an array iteratively
+    for (let i = 0; i < attachments.length; i++) {
+        // Exclude file in specified index
+        if (index !== i)
+            fileBuffer.items.add(attachments[i]);
+    }
+    
+    // Assign buffer to file input
+    btnSelectImages.files = fileBuffer.files; // <-- according to your file input reference
+}
+
+function swapFiles(a, b) {
+    var attachments = btnSelectImages.files;
+    var fileBuffer = new DataTransfer();
+    
+    let fileA = attachments[a];
+    let fileB = attachments[b];
+
+    for (let i = 0; i < attachments.length; i++) {
+        if (i == a)
+            fileBuffer.items.add(fileB);
+        else if (i == b)
+            fileBuffer.items.add(fileA);
+        else
+            fileBuffer.items.add(attachments[i]);
+    }
+    btnSelectImages.files = fileBuffer.files;
+}
+
+function getActionParentIndex(actionElement) {
+    let parent = actionElement.parentElement.parentElement;
+    let parentsParent = parent.parentElement;
+    let index = -1;
+    for (let i = 0; i < parentsParent.childNodes.length; i++) {
+        if (parentsParent.childNodes[i] == parent) {
+            index = i;
+            break;
+        }
+    }
+    return index;
 }
