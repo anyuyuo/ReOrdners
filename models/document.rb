@@ -1,14 +1,24 @@
 require './db/sql'
 
 class Document
-    attr_accessor :id, :name, :scan_date
-    attr_accessor :content, :description, :file_ext
-    attr_accessor :file, :file_orig_name, :img_path
+    attr_accessor :id
+    attr_accessor :name
+    attr_accessor :creation_date
+
+    attr_accessor :scan_date
+    attr_accessor :content
+    attr_accessor :description
+    attr_accessor :file
+    attr_accessor :file_ext
+    attr_accessor :file_orig_name
+    attr_accessor :img_path
     # TODO: I think :file is not used anymore
 
     def initialize
         @id = nil
         @name = current_time = Time.now().strftime "%F %T"
+        @creation_date = Time.now.to_i
+
         @scan_date = Time.now.to_i
         @content = ""
         @description = ""
@@ -86,7 +96,7 @@ class Document
       
         return self.create_doc res
     end
-    
+
     def self.load_batch offset=0, batch_count=nil
         db = DB.get_db
         if defined? batch_count

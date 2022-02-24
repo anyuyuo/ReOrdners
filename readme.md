@@ -21,3 +21,28 @@
     - [ ] Add tesseract to extract content from letters and save the content in db to be searchable
 - Optimization
     - [ ] Add prod flag to serve statics from nginx
+
+
+## Database structure
+2022-24-02 - Currently bein restructured into:
+```
+Document
+================
+INT     id
+TEXT    name
+INT     creation Date
+
+Document_Image
+================
+INT     document_id
+INT     image_id
+BOOL    parent
+
+Image
+================
+INT     id
+TEXT    content
+TEXT    filename
+TEXT    mimetype
+
+```

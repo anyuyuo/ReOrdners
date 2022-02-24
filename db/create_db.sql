@@ -21,5 +21,25 @@ CREATE TABLE IF NOT EXISTS Doc_Tag (
     tag_id INT NOT NULL
 );
 
+
+-- new schema
+-- slowly phasing out the old one
+CREATE TABLE document_new (
+	name TEXT,
+	creation_date INT,
+);
+
+CREATE TABLE image (
+	filename TEXT,
+	mimetype TEXT,
+	content TEXT
+);
+
+CREATE TABLE doc_img (
+	doc_id INT,
+	image_id INT,
+	parent INT
+);
+
 -- Default entries
 INSERT INTO Tags VALUES ("Rechnung"), ("Brief"), ("Mahnung"), ("Informationen"), ("Stadt"), ("Abrechnung");
