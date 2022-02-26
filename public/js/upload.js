@@ -37,14 +37,9 @@ function delPreviewImage(event) {
 
 function setParent(event) {
     let index = getActionParentIndex(event);
-    console.log(event);
 
     swapFiles(index, 0);
 
-    console.log({
-        f1: btnSelectImages.files[index],
-        f2: btnSelectImages.files[0]
-    })
     renderImagePreviews();
 }
 
@@ -86,7 +81,6 @@ function getActionParentIndex(event) {
     let parent = null;
 
     for (const element of event.path) {
-        console.log(element.classList)
         if (element.classList.contains('preview-image')) {
             parent = element;
             break;

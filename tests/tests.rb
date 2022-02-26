@@ -1,6 +1,6 @@
 require './db/sql'
-require './models/image'
 require './models/doc'
+require './models/image'
 
 def prepare_db
     DB::init true
@@ -26,22 +26,10 @@ def prepare_db
 end
 
 def test_doc_img_db_select_by_document_id id
-    db = DB.get_db
-
-    sql = <<-SQL
-        SELECT *
-        FROM doc_img
-    SQL
-
-    p 'getting images from document with sql: ' + sql
-    begin
-        res = db.execute sql
-    rescue => exception
-        $stderr.puts "Error test_doc_img_db_select_by_document_id: " + exception.to_s
-        return nil
-    end
-
-    p res
+    doc = NDocument.load id
+    p doc
+    images = doc.get_images
+    p images
 end
 
 id = prepare_db()

@@ -1,4 +1,5 @@
 require './db/sql'
+require './models/image'
 
 class NDocument
     attr_accessor :id
@@ -13,29 +14,7 @@ class NDocument
         @creation_date = Time.now.to_i
         @parent_img = nil # parent image id
     end
-
-    def update
-        db = DB.get_db
-
-        begin
-            sql = <<-SQL
-                UPDATE document_new
-                SET
-                    name=?,
-                    parent_img=?
-                WHERE
-                    rowid=?
-            SQL
-            db.execute sql, [@parent_img, @id]
-        rescue => exception
-            # todo: raise or return false?
-            # raise "Error: "  + exception.to_s
-            return nil
-        end
-        
-        return true
-    end
-
+    
     def append_image image, make_parent = false
         # null check
         return nil if @id == nil or image == nil or image.id == nil
@@ -58,6 +37,56 @@ class NDocument
         end
         return true
     end
+    
+    def get_images
+        db = DB.get_db
+
+        sql = <<-SQLImages
+            SELECT image.rowid, image.*
+            FROM image, doc_img
+            WHERE doc_img.doc_id = ? AND image.ROWID = doc_img.image_id
+        SQLImages
+
+        begin
+            res = db.execute sql, @id
+        rescue => exception
+            $stderr.puts "Error getting images: "  + exception.to_s
+            return nil
+        end
+
+        puts res
+
+        images = []
+        res.entries.each do |img|
+            images.append Image::create_from_obj img
+        end
+
+        return images
+    end
+
+    def update
+        db = DB.get_db
+
+        begin
+            sql = <<-SQLUpdate
+                UPDATE document_new
+                SET
+                    name=?,
+                    parent_img=?
+                WHERE    
+                    rowid=?
+            SQLUpdate
+
+            db.execute sql, [@parent_img, @id]
+        rescue => exception
+            $stderr.puts "Error updating document: "  + exception.to_s
+            # todo: raise or return false?
+            # raise "Error: "  + exception.to_s
+            return nil
+        end    
+        
+        return true
+    end    
 
     def save
         if @name == nil
@@ -82,24 +111,22 @@ class NDocument
     end
 
     def self.create_from_obj obj
-        doc = Document.new
-        doc.id = obj["id"]
+        doc = NDocument.new
+        doc.id = obj["rowid"]
         doc.name = obj["name"]
-        doc.scan_date = obj["creation_date"]
-        doc.content = obj["parent_id"]
+        doc.creation_date = obj["creation_date"]
+        doc.parent_img = obj["parent_img"]
         return doc
     end
 
     def self.load id
         db = DB.get_db
 
-        db_res = db.execute "SELECT name, creation_date, parent_img FROM document_new WHERE rowid=#{id}"
+        db_res = db.execute "SELECT rowid, name, creation_date, parent_img FROM document_new WHERE rowid=#{id}"
         
         return nil if (db_res.length < 1) 
 
-        res["id"] = id
-        p res
-        return Document::create_from_obj db_res[0]
+        return NDocument.create_from_obj db_res[0]
     end
 
     def self.get_doc_count

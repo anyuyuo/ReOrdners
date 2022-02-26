@@ -63,6 +63,5 @@ post '/upload' do
     ndoc.parent_img = first_img
     ndoc.update
 
-    p "redirecting to #{parent_id}"
     redirect "/view/#{parent_id}"
 end

@@ -49,4 +49,7 @@
 <hr>
 <div id="image-previews">
     <img src="<%= @doc.get_path %>">
+    <% @images.each do |img| %>
+      <img src="/uploads/<%= img.id %><%= img.mimetype %>">
+    <% end %>
 </div>
