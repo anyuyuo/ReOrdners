@@ -52,6 +52,21 @@ class Document
         return true
     end
 
+    def appendImage image
+        db = DB.get_db
+        
+        begin
+            sql = <<-SQL
+                INSERT INTO doc_img (doc_id image_id, parent)
+                VALUES (?, ?, ?)
+            SQL
+
+            res = db.execute sql, self.id, image.id, image.is_parent
+        rescue => exception
+            $stderr.puts "Error: "  + exception.to_s
+        end
+    end
+
     def save
         db = DB.get_db
 
@@ -64,7 +79,6 @@ class Document
         end
         
         @id = db.last_insert_row_id
-        return @id
     end
 
     def self.delete id

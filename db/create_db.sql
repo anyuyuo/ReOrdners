@@ -24,21 +24,21 @@ CREATE TABLE IF NOT EXISTS Doc_Tag (
 
 -- new schema
 -- slowly phasing out the old one
-CREATE TABLE document_new (
+CREATE TABLE IF NOT EXISTS document_new (
 	name TEXT,
 	creation_date INT,
+	parent_img INT
 );
 
-CREATE TABLE image (
+CREATE TABLE IF NOT EXISTS image (
 	filename TEXT,
 	mimetype TEXT,
 	content TEXT
 );
 
-CREATE TABLE doc_img (
+CREATE TABLE IF NOT EXISTS doc_img (
 	doc_id INT,
-	image_id INT,
-	parent INT
+	image_id INT
 );
 
 -- Default entries

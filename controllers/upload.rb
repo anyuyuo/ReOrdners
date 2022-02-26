@@ -25,12 +25,14 @@ post '/upload' do
     end
     
     parentId = nil
+    doc = Document.new
+
     params[:files].each do |file|
-        doc = Document.new
+
+        doc.appendImage
 
         doc.file_orig_name = file[:filename]
         doc.file_ext = File.extname(file[:tempfile].path)
-        doc.save
 
         # set first item to parent
         parentId = doc.id if parentId == nil
@@ -39,6 +41,7 @@ post '/upload' do
         FileUtils::Verbose.cp(file[:tempfile].path, new_path)
     end
 
+    doc.save
 
     p "redirecting to #{parentId}"
     redirect "/view/#{parentId}"

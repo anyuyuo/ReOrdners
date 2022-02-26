@@ -3,10 +3,15 @@ require 'sinatra'
 
 class DB
     attr_reader :db
-    
-    def self.init
-        db_exists = File.exist? '../database.db'
-        @@db = SQLite3::Database.new 'database.db'
+    def self.init debug = false
+        if debug
+            if File.exist?  "./test_database.db" then File.delete "./test_database.db" end
+            db_exists = File.exist? '../test_database.db'
+            @@db = SQLite3::Database.new 'test_database.db'
+        else
+            db_exists = File.exist? '../database.db'
+            @@db = SQLite3::Database.new 'database.db'
+        end
         @@db.results_as_hash = true
 
         # TODO: check whether db is set up
