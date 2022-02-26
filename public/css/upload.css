@@ -46,6 +46,32 @@ form {
     top: 0;
     left: 0;
     width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.preview-image:first-child .action-item:first-child {
+    opacity: 0;
+    cursor: default;
+}
+
+.action-item {
+    border: none;
+    height: 2rem;
+    width: 2rem;
+    background-color: #fff4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(3px);
+}
+
+.action-item:first-child:hover {
+    background-color: #f7ec42;
+}
+
+.action-item:nth-child(2):hover {
+    background-color: #e06363;
 }
 
 .preview-image > .img {

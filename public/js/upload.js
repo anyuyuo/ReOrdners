@@ -9,70 +9,35 @@ function renderImagePreviews(event) {
     btnSelectImages.files = null;
     preview.innerHTML = "";
     
-    /*
-        Template:
-        <div class="preview-image center-content">
-            <div class="actions p-sm center-content">
-                <button class="btn">*</button>
-                <button class="btn ml">del</button>
-            </div>
-            <img src="/uploads/1.jpg" class="img" />
-        </div>
-    */
-    for(let i = 0; i < btnSelectImages.files.length; i++) {
+    let template = document.getElementById('preview-template');
+    
+    for(let i = 0; i < btnSelectImages.files.length; i++) {        
         let file = btnSelectImages.files[i];
         let img_src = URL.createObjectURL(file);
+
+        let newPreview = template.cloneNode(true);
+        newPreview.id = '';
         
-        /* create html elements according to template*/
-        let image = document.createElement("div");
-        image.attributes.index = i;
-        image.classList.add("preview-image", "center-content", "m");
+        newPreview.querySelectorAll(".action-item")[0].onclick = setParent;
+        newPreview.querySelectorAll(".action-item")[1].onclick = delPreviewImage;
 
-        let actions = document.createElement("div");
-        let btnActionSetParent = document.createElement("button");
-        let btnActionDeleteImage = document.createElement("button");
+        newPreview.querySelector('.img').src = img_src;
 
-        actions.classList.add("actions", "p-sm", "center-content");
-
-        // Todo: set proper icons as values
-        btnActionSetParent.textContent = "*";
-        btnActionSetParent.classList.add("btn", "action-parent")
-        btnActionSetParent.onclick = setParent;
-
-        btnActionDeleteImage.textContent = "-";
-        btnActionDeleteImage.classList.add("btn", "ml");
-        btnActionDeleteImage.onclick = delPreviewImage;
-
-        actions.appendChild(btnActionSetParent);
-        actions.appendChild(btnActionDeleteImage);
-
-        let img = document.createElement("img");
-        img.classList.add("img");
-        img.src = img_src;
-
-        image.appendChild(actions);
-        image.appendChild(img);
-        preview.appendChild(image);
+        preview.appendChild(newPreview);
     }
-
-    preview.querySelector('.action-parent').classList.add("starred");
 
     btnSubmit.disabled = false;
 }
 
 function delPreviewImage(event) {
-    let index = getActionParentIndex(event.target);
+    let index = getActionParentIndex(event);
     removeFile(index);
     renderImagePreviews();
 }
 
 function setParent(event) {
-    let index = getActionParentIndex(event.target);
-    console.log({
-        index,
-        f1: btnSelectImages.files[index],
-        f2: btnSelectImages.files[0]
-    })
+    let index = getActionParentIndex(event);
+    console.log(event);
 
     swapFiles(index, 0);
 
@@ -117,8 +82,17 @@ function swapFiles(a, b) {
     btnSelectImages.files = fileBuffer.files;
 }
 
-function getActionParentIndex(actionElement) {
-    let parent = actionElement.parentElement.parentElement;
+function getActionParentIndex(event) {
+    let parent = null;
+
+    for (const element of event.path) {
+        console.log(element.classList)
+        if (element.classList.contains('preview-image')) {
+            parent = element;
+            break;
+        }
+    }
+
     let parentsParent = parent.parentElement;
     let index = -1;
     for (let i = 0; i < parentsParent.childNodes.length; i++) {
