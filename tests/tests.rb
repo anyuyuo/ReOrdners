@@ -1,10 +1,13 @@
 require './db/sql'
 require './models/image'
-require './models/document'
+require './models/doc'
 
 def prepare_db
     DB::init true
     db = DB.get_db
+
+    doc = NDocument.new
+    doc.save
 
     img1 = Image.new
     img1.filename = 'testimage 1'
@@ -16,43 +19,30 @@ def prepare_db
     img2.mimetype = 'png'
     img2.save
 
-    begin
-        sql = <<-SQL
-            INSERT INTO document_new (rowid, name, creation_date, parent_img) VALUES (1000, "test number 1", 0, ?);
-        SQL
-        db.execute sql, img1.id
+    doc.append_image img1, true
+    doc.append_image img2
 
-        # sql = <<-SQL
-        #     INSERT INTO image (rowid, filename, mimetype, content) VALUES (10, "test image 1", "png", ""), (11, "test image 2", "png", "");
-        # SQL
-        # db.execute sql
-
-        sql = <<-SQL
-            INSERT INTO doc_img (doc_id, image_id) VALUES (1000, ?), (1000, ?);
-        SQL
-        db.execute sql, img1.id, img2.id
-    rescue => e
-        $stderr.puts "Error: "  + e.to_s
-    end
+    doc.id
 end
 
-def test_doc_img_db_select_by_document_id
+def test_doc_img_db_select_by_document_id id
     db = DB.get_db
 
     sql = <<-SQL
         SELECT *
         FROM doc_img
-        WHERE doc_id=?
     SQL
+
+    p 'getting images from document with sql: ' + sql
     begin
-        res = db.execute sql, 1000
+        res = db.execute sql
     rescue => exception
-        $stderr.puts "Error: "  + e.to_s
+        $stderr.puts "Error test_doc_img_db_select_by_document_id: " + exception.to_s
+        return nil
     end
 
     p res
 end
 
-prepare_db()
-
-test_doc_img_db_select_by_document_id()
+id = prepare_db()
+test_doc_img_db_select_by_document_id(id)

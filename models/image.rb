@@ -8,9 +8,9 @@ class Image
     # :path is not needed since it will be static
 
     def initialize
-        self.filename = ''
-        self.mimetype = ''
-        self.content = ''
+        @filename = ''
+        @mimetype = ''
+        @content = ''
     end
 
     def getDocument
@@ -23,7 +23,7 @@ class Image
     
     def save
         # reutrn nil if null in case of error
-        if self.filename == nil or self.mimetype == nil
+        if @filename == nil or @mimetype == nil
             raise 'Image save error: Values must not be nil'
             return nil
         end
@@ -36,7 +36,7 @@ class Image
                 VALUES (?, ?)
             SQL
 
-            db.execute sql, self.filename, self.mimetype
+            db.execute sql, @filename, @mimetype
         rescue => exception
             $stderr.puts "Error: "  + exception.to_s
             return nil
@@ -63,7 +63,7 @@ class Image
                 WHERE parent_img = ?
             SQL
 
-            res_arr = db.execute sql self.id
+            res_arr = db.execute sql @id
 
         rescue => exception
             $stderr.puts "Error: "  + exception.to_s

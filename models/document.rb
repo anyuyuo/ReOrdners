@@ -27,7 +27,7 @@ class Document
     end
 
     def get_path
-        "/uploads/#{self.id}#{self.file_ext}"
+        "/uploads/#{@id}#{@file_ext}"
     end
 
     def update
@@ -50,21 +50,6 @@ class Document
         end
         
         return true
-    end
-
-    def appendImage image
-        db = DB.get_db
-        
-        begin
-            sql = <<-SQL
-                INSERT INTO doc_img (doc_id image_id, parent)
-                VALUES (?, ?, ?)
-            SQL
-
-            res = db.execute sql, self.id, image.id, image.is_parent
-        rescue => exception
-            $stderr.puts "Error: "  + exception.to_s
-        end
     end
 
     def save
@@ -108,7 +93,7 @@ class Document
         
         res["id"] = id
       
-        return self.create_doc res
+        return Document::create_doc res
     end
 
     def self.load_batch offset=0, batch_count=nil
@@ -122,7 +107,7 @@ class Document
         res = db.execute sql
         docs = []
         res.each do |doc|
-          docs.push self.create_doc doc
+          docs.push Document::create_doc doc
         end
 
         return docs
